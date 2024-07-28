@@ -5,6 +5,7 @@
     use Illuminate\Foundation\Auth\User as Authenticatable;
     use Illuminate\Notifications\Notifiable;
     use Laravel\Sanctum\HasApiTokens;
+    use App\Models\BigFive;
     
     class Member extends Authenticatable
     {
@@ -40,5 +41,10 @@
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+
+        public function BigFive(){
+
+            return $this->hasOne(BigFive::class);
+        }
     }
 
