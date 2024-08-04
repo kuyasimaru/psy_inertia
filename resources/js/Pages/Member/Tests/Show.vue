@@ -4,14 +4,8 @@
       <p v-if="message" :class="status">{{ message }}</p>
       
       <div v-if="bigfive">
-        <h2>あなたの結果</h2>
-        <ul>
-          <li>開放性: {{ bigfive.openness }}</li>
-          <li>協調性: {{ bigfive.agreeableness }}</li>
-          <li>外向性: {{ bigfive.extraversion }}</li>
-          <li>誠実性: {{ bigfive.conscientiousness }}</li>
-          <li>神経症傾向: {{ bigfive.neuroticism }}</li>
-        </ul>
+        <BigFiveChart :bigfive="bigfive" />
+        <p>それぞれの平均値： 開放性 約3.5点 協調性 約3.2点 外向性 約3.1点 誠実性 約2.9点 神経症傾向 約3.5点</p>
       </div>
       <div v-else>
         <p>テスト結果が見つかりません。</p>
@@ -22,10 +16,14 @@
   
   <script>
   export default {
-    props: {
-      bigfive: Object,
-      message: String,
-      status: String
-    }
+  components: {
+    BigFiveChart
+  },
+  props: {
+    bigfive: Object,
+    message: String,
+    status: String
   }
+}
+import BigFiveChart from '@/Components/BigFiveChart.vue';
   </script>

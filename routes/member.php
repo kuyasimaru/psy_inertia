@@ -14,7 +14,7 @@ Route::prefix('member')->name('member.')->group(function () {
 
        
         Route::get('/tests/index',[BigfiveController::class,'index']);
-        Route::get('/tests/create',[BigfiveController::class,'create']);
+        Route::get('/tests/create',[BigfiveController::class,'create'])->name('tests.create');
         Route::post('/tests',[BigfiveController::class,'store'])->name('tests.store');
         Route::get('/tests/show/{bigfive?}', [BigfiveController::class, 'show'])->name('tests.show');
 
