@@ -42,7 +42,7 @@ public function create()
 
         //配列に解答代入
         for ($i = 1; $i <= 50; $i++) {
-            $key = 'answers' . $i;
+            $key = 'answers' . $i; //answersと$iを連結
             if (isset($answers[$key])) {
                 $averagesArray[] = $answers[$key];
             } else {
@@ -51,7 +51,7 @@ public function create()
             }
         }
 
-        // 配列$averagesArrayを１０個ずつのグループに分割
+        // 配列$averagesArrayを10個ずつのグループに分割
         $groupedAnswers = collect($averagesArray)->chunk(10);
 
         // 配列内の数値を合計

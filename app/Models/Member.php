@@ -6,6 +6,7 @@
     use Illuminate\Notifications\Notifiable;
     use Laravel\Sanctum\HasApiTokens;
     use App\Models\BigFive;
+    use App\Models\Chronotype;
     
     class Member extends Authenticatable
     {
@@ -43,8 +44,11 @@
         ];
 
         public function BigFive(){
-
             return $this->hasOne(BigFive::class);
+        }
+
+        public function Chronotype(){
+            return $this->hasOne(Chronotype::class);
         }
     }
 
