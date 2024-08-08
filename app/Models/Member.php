@@ -7,6 +7,7 @@
     use Laravel\Sanctum\HasApiTokens;
     use App\Models\BigFive;
     use App\Models\Chronotype;
+    use App\Models\Style;
     
     class Member extends Authenticatable
     {
@@ -49,6 +50,9 @@
 
         public function Chronotype(){
             return $this->hasOne(Chronotype::class);
+        }
+        public function Style(){
+            return $this->hasOne(Style::class);
         }
     }
 
