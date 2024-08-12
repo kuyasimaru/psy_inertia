@@ -5,6 +5,7 @@
     use Illuminate\Foundation\Auth\User as Authenticatable;
     use Illuminate\Notifications\Notifiable;
     use Laravel\Sanctum\HasApiTokens;
+    use App\Models\Company;
     
     class Admin extends Authenticatable
     {
@@ -19,6 +20,7 @@
             'name',
             'email',
             'password',
+            'company_id',
         ];
     
         /**
@@ -40,5 +42,9 @@
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+
+        public function company(){
+            return $this->hasOne(Company::class);
+        }
     }
 

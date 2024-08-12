@@ -8,6 +8,7 @@
     use App\Models\BigFive;
     use App\Models\Chronotype;
     use App\Models\Style;
+    use App\Models\Company;
     
     class Member extends Authenticatable
     {
@@ -21,6 +22,7 @@
         protected $fillable = [
             'name',
             'email',
+            'company_id',
             'password',
         ];
     
@@ -53,6 +55,10 @@
         }
         public function Style(){
             return $this->hasOne(Style::class);
+        }
+
+        public function company(){
+            return $this->belongsTo(Company::class);
         }
     }
 

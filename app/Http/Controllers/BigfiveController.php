@@ -6,12 +6,14 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\BigFive;
 use Illuminate\Support\Facades\Auth;
+
 //use Illuminate\Support\Facades\Validator;
 
 class BigfiveController extends Controller
 {
     public function index()
     {
+
         return Inertia::render('Member/Tests/Index');
     }
 
@@ -83,6 +85,8 @@ public function create()
         }
 
     public function show(Request $request, $bigfiveId = null){
+
+
 
         $member_id = Auth::id();
         if ($bigfiveId) {
