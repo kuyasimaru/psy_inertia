@@ -60,5 +60,8 @@
         public function company(){
             return $this->belongsTo(Company::class);
         }
+        public function invite(){
+            return $this->hasMany(Invite::class);
+        }
     }
 

@@ -44,7 +44,6 @@ class FormInviteController extends Controller
         $member->company_id = $company->id;
         $member->save();
 
-        $invite->delete();
 
         return redirect()->back()->with('message', '会社情報が登録されました。');
     }

@@ -36,5 +36,49 @@ class AdminInvite extends Controller
         return redirect()->back()->with('message', '招待メールを送信しました。');
     }
 
+    public function getInviteMembers(Request $request){
+        $admin = $request->user();
+
+        $members = Member::with(['company'])
+        ->whereHas('invite',function($query) use ($admin) {
+            $query->where('admin_id', $admin->id);
+        })->get()
+        ->map(function ($member){
+            return [
+                'id' => $member->id,
+                'name' =>$member->name,
+                // 値がない場合null値を返すnull合体演算子
+                'companyName' => $member->company ? $member->company->companyName : null,
+                'departmentName' => $member->company ? $member->company->departmentName : null,
+            ];
+        });
+
+        return Inertia::render('Admin/Home/MembersInfo',[
+            'members'=>$members
+        ]);
+    }
+
+    public function showBigFive($memberId){
+
+        $member = member::findOrFail($memberId);
+
+        // 取得したmemberのbigFiveより最初の１を取得する
+        $bigFive = $member->bigfive()->latest()->first();
+
+        $chronotype = $member->Chronotype()->first();
+
+        $style = $member->Style()->first();
+
+        if(!$bigFive){
+            return back()->with('message','結果がありません');
+        }
+
+        return Inertia::render('Admin/Home/ShowBigFive',[
+            'member' => $member,
+            'bigFive' => $bigFive,
+            'Chronotype' => $chronotype,
+            'Style' => $style
+        ]);
+    } 
 
 }

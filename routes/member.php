@@ -18,7 +18,7 @@ Route::prefix('member')->name('member.')->group(function () {
        
         Route::get('/tests/index',[BigfiveController::class,'index']);
         Route::get('/tests/create',[BigfiveController::class,'create'])->name('tests.create');
-        Route::post('/tests',[BigfiveController::class,'store'])->name('tests.store');
+        Route::post('/tests/store',[BigfiveController::class,'store'])->name('tests.store');
         Route::get('/tests/show/{bigfive?}', [BigfiveController::class, 'show'])->name('tests.show');
 
         Route::get('/tests/chronotypecreate',[ChronotypeController::class, 'chronotypecreate'])->name('tests.chronotypecreate');
@@ -26,7 +26,7 @@ Route::prefix('member')->name('member.')->group(function () {
         Route::get('/tests/chronotypeshow/{chronotype?}', [ChronotypeController::class, 'chronotypeshow'])->name('tests.chronotypeshow');
 
         Route::get('/tests/stylecreate',[StyleController::class, 'stylecreate'])->name('tests.stylecreate');
-        Route::post('/tests',[StyleController::class,'stylestore'])->name('tests.stylestore');
+        Route::post('/tests/stylestore',[StyleController::class,'stylestore'])->name('tests.stylestore');
         Route::get('/tests/styleshow/{style?}', [StyleController::class, 'styleshow'])->name('tests.styleshow');
 
         Route::get('/company/formcreate/{token}', [FormInviteController::class, 'showCompanyForm'])->name('company.formcreate');
