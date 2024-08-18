@@ -17,7 +17,7 @@
       >
         <template v-slot:top>
           <v-toolbar flat>
-            <v-toolbar-title>Members List</v-toolbar-title>
+            <v-toolbar-title>社員一覧</v-toolbar-title>
           </v-toolbar>
         </template>
         <template v-slot:item.actions="{ item }">
@@ -31,13 +31,13 @@
           <v-icon
             class="me-2"
             size="small"
-            @click="editItem(item.raw)"
+            @click="editItem(item)"
           >
             mdi-pencil
           </v-icon>
           <v-icon
             size="small"
-            @click="deleteItem(item.raw)"
+            @click="deleteItem(item)"
           >
             mdi-delete
           </v-icon>
@@ -64,10 +64,10 @@ export default {
     return {
       drawer: null,
       headers: [
-        { title: 'Name', key: 'name' },
-        { title: 'Company', key: 'companyName' },
-        { title: 'Department', key: 'departmentName' },
-        { title: 'Actions', key: 'actions', sortable: false },
+        { title: '名前', key: 'name' },
+        { title: '会社名', key: 'companyName' },
+        { title: '部署名', key: 'departmentName' },
+        { title: '詳細・編集・削除', key: 'actions', sortable: false },
       ],
     }
   },
@@ -80,11 +80,11 @@ export default {
       this.$inertia.visit(route('admin.home.bigfive', { member: item.id }));
     },
     editItem(item) {
-      this.$inertia.visit(route('admin.members.edit', { id: item.id }));
+      this.$inertia.visit(route('admin.home.edit', { id: item.id }));
     },
     deleteItem(item) {
       if (confirm('このメンバーを削除してもよろしいですか？')) {
-        this.$inertia.delete(route('admin.members.destroy', { id: item.id }));
+        this.$inertia.delete(route('admin.home.delete', { id: item.id }));
       }
     },
   }

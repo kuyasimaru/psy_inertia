@@ -18,28 +18,30 @@ class AdminInvite extends Controller
         return Inertia::render('Admin/Invite/Send');
     }
     public function sendInvite(Request $request){
+        
         $validate = $request->validate([
             'email'=> 'required|email',
         ]);
 
         $member = Member::where('email',$validate['email'])->firstOrFail(); //最初の一つのレコードを取得
-        $token = Str::random(32);
+        $token = Str::random(32);//トークン生成
 
         $invite = Invite::create([
             'member_id' => $member->id,
             'admin_id' => $request->user()->id,
             'token' => $token,
         ]);
-
+        //メール送信
         Mail::to($member->email)->send(new MemberInvitMail($invite));
 
         return redirect()->back()->with('message', '招待メールを送信しました。');
     }
 
     public function getInviteMembers(Request $request){
+        //
         $admin = $request->user();
 
-        $members = Member::with(['company'])
+        $members = Member::with('company')
         ->whereHas('invite',function($query) use ($admin) {
             $query->where('admin_id', $admin->id);
         })->get()
@@ -81,4 +83,42 @@ class AdminInvite extends Controller
         ]);
     } 
 
+    public function edit($id){
+        $member = Member::findOrFail($id);
+        return Inertia::render('Admin/Home/Edit',[
+            'member' =>$member,
+        ]);
+    }
+
+    public function update(Request $request ,$id){
+        $member = Member::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:50',
+            'companyName' => 'required|string|max:50',
+            'departmentName' => 'required|string|max:50',
+        ]);
+
+        $member->update(['name' => $validated['name']]);
+
+        // 会社情報を更新
+        $company = $member->company;
+        if ($company) {
+            $company->update([
+                'companyName' => $validated['companyName'],
+                'departmentName' => $validated['departmentName'],
+            ]);
+        }
+
+        return to_route('admin.home.members-info')
+        ->with('message','社員情報を更新しました、');
+    }
+
+    public function destroy($id){
+        $member = Member::findOrFail($id);
+        $member->delete();
+
+        return to_route('admin.home.members-info')
+        ->with('message','社員情報を更新しました、');
+    }
 }

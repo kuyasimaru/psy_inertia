@@ -60,6 +60,21 @@
         public function company(){
             return $this->belongsTo(Company::class);
         }
+
+        //手動でのcascade処理
+        //bootをオーバーライド
+        public static function boot(){
+            //boot呼び出し
+            parent::boot();
+            //削除と紐付け
+            static::deleting(function($member){
+                //member削除時、Companyも削除
+                if($member->company){
+                    $member->company->delete();
+                }
+            });
+        }
+
         public function invite(){
             return $this->hasMany(Invite::class);
         }

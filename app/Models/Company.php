@@ -20,6 +20,6 @@ class Company extends Model
     }
 
     public function member(){
-        return $this->hasMany(Member::class);
+        return $this->hasOne(Member::class);
     }
 }
