@@ -23,6 +23,15 @@
           >
             {{ status }}
           </v-alert>
+          <v-btn
+            color="secondary"
+            :href="route('member.index')"
+            class="mt-4"
+            text
+          >
+            <v-icon left>mdi-arrow-left</v-icon>
+            戻る
+          </v-btn>
         </v-card-text>
       </v-card>
     </v-container>

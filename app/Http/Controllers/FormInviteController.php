@@ -45,6 +45,7 @@ class FormInviteController extends Controller
         $member->save();
 
 
-        return redirect()->back()->with('message', '会社情報が登録されました。');
+        return to_route('member.index')
+        ->with('message', '会社情報が登録されました。');
     }
 }

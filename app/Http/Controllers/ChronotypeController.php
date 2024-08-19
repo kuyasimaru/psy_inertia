@@ -65,7 +65,7 @@ class ChronotypeController extends Controller
             $chronotype = Chronotype::where('member_id', $member_id)->latest()->first();
         }
         if (!$chronotype) {
-            return to_route('member.tests.chronoTypecreate')
+            return to_route('member.tests.chronotypecreate')
                 ->with([
                     'message' => 'まだテスト結果がありません。テストを受けてください。',
                     'status' => 'info'

@@ -21,7 +21,12 @@ class RouteServiceProvider extends ServiceProvider
 
     public static function home() {
         $role = detect_role();
-        return empty($role) ? self::HOME : '/' . $role . self::HOME;
+        if($role === 'member'){
+            return '/member/tests/index';
+        } elseif($role ==='admin') {
+            return '/admin/home/membersinfo';
+        }
+        return  self::HOME;
     }
 
     /**

@@ -34,7 +34,8 @@ class AdminInvite extends Controller
         //メール送信
         Mail::to($member->email)->send(new MemberInvitMail($invite));
 
-        return redirect()->back()->with('message', '招待メールを送信しました。');
+        return to_route('admin.home.members-info')
+        ->with('message', '招待メールを送信しました。');
     }
 
     public function getInviteMembers(Request $request){

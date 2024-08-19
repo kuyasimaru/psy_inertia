@@ -14,7 +14,7 @@ if (!function_exists('detect_role')) {
                 return $role;
             }
         }
-        return 'default'; 
+        return null; 
     }
 
 }

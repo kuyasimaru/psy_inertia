@@ -1,23 +1,73 @@
 <template>
-    <v-container>
-      <v-form @submit.prevent="submitForm">
-        <v-card v-for="(question, index) in questions" :key="index" class="mb-4">
-          <v-card-title>Question {{ index + 1 }}: {{ question.text }}</v-card-title>
-          <v-card-text>
-            <v-radio-group 
+  <v-container class="max-w-3xl mx-auto px-4">
+    <v-form @submit.prevent="submitForm" ref="formRef">
+      <v-card
+        v-for="(question, index) in questions"
+        :key="index"
+        class="mb-6 rounded-lg shadow-md"
+        elevation="2"
+      >
+        <v-card-title class="text-xl font-bold bg-blue-50 pa-4">
+          Question {{ index + 1 }}: {{ question.text }}
+        </v-card-title>
+        <v-card-text class="pa-4">
+          <v-radio-group
             inline
             v-model="form.answers[`answers${index + 1}`]"
             :rules="[(v) => !!v || props.validationMessages[`answers${index + 1}.required`]]"
             required
+            column
           >
-            <v-radio v-for="option in question.options" :key="option.value" :label="option.label" :value="option.value"></v-radio>
+            <div
+              v-for="option in question.options"
+              :key="option.value"
+              class="mb-3"
+            >
+              <v-radio
+                :value="option.value"
+                color="primary"
+                class="custom-radio"
+              >
+                <template v-slot:label>
+                  <div class="d-flex align-center py-3 px-4 rounded-lg hover:bg-gray-100 transition-colors">
+                    <span class="text-body-1 ml-2">{{ option.label }}</span>
+                  </div>
+                </template>
+              </v-radio>
+            </div>
           </v-radio-group>
-          </v-card-text>
-        </v-card>
-        <v-btn type="submit" color="primary" :disabled="!isFormValid">送信</v-btn>
-      </v-form>
-    </v-container>
-  </template>
+        </v-card-text>
+      </v-card>
+      <div class="d-flex justify-center mt-8 mb-12">
+        <v-btn
+          type="submit"
+          color="primary"
+          :disabled="!isFormValid"
+          x-large
+          block
+          @click="submitForm"
+          class="py-3 text-lg font-weight-bold"
+        >
+          送信
+        </v-btn>
+      </div>
+    </v-form>
+  </v-container>
+</template>
+
+<style scoped>
+.custom-radio {
+  margin-left: 0;
+}
+.custom-radio >>> .v-input--selection-controls__input {
+  transform: scale(1.5);
+  margin-right: 12px;
+}
+.custom-radio >>> .v-label {
+  font-size: 1.1rem;
+  width: 100%;
+}
+</style>
   
 <script setup>
 import { ref } from 'vue';

@@ -25,14 +25,23 @@
             {{ status }}
           </v-alert>
         </v-card-text>
+        <v-img
+          v-if="status === 'success'"
+          :src="resultImage"
+          max-width="300"
+          class="mx-auto mt-5"
+          contain
+        ></v-img>
+        <v-btn
+          color="secondary"
+          :href="route('member.index')"
+          class="mt-4"
+          text
+        >
+          <v-icon left>mdi-arrow-left</v-icon>
+          戻る
+        </v-btn>
       </v-card>
-      <v-img
-      v-if="status === 'success'"
-      :src="resultImage"
-      max-width="300"
-      class="mx-auto mt-5"
-      contain
-    ></v-img>
     </v-container>
   </template>
   

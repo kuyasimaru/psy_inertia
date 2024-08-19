@@ -268,22 +268,51 @@ const submitForm = () => {
 };
 </script>
 <template>
-    <v-container>
-      <v-form @submit.prevent="submitForm">
-        <v-card v-for="(question, index) in questions" :key="index" class="mb-4">
-          <v-card-title>Question {{ index + 1 }}: {{ question.text }}</v-card-title>
-          <v-card-text>
-            <v-radio-group 
-            inline
+  <v-container class="max-w-4xl mx-auto px-4">
+    <v-form @submit.prevent="submitForm" ref="formRef">
+      <v-card
+        v-for="(question, index) in questions"
+        :key="index"
+        class="mb-6 rounded-lg shadow-md"
+        elevation="2"
+      >
+        <v-card-title class="text-h6 font-weight-bold bg-blue-50 pa-4">
+          Question {{ index + 1 }}: {{ question.text }}
+        </v-card-title>
+        <v-card-text class="pa-4">
+          <v-radio-group
             v-model="form.answersC[`answersC${index + 1}`]"
             :rules="[(v) => !!v || props.validationMessages[`answersC${index + 1}.required`]]"
             required
+            row
           >
-            <v-radio v-for="option in question.options" :key="option.value" :label="option.label" :value="option.value"></v-radio>
+            <v-radio
+              v-for="option in question.options"
+              :key="option.value"
+              :value="option.value"
+              color="primary"
+              class="custom-radio flex-grow-1 ma-2"
+            >
+              <template v-slot:label>
+                <div class="radio-button-wrapper pa-3 rounded-lg text-center h-100 d-flex align-center justify-center">
+                  {{ option.label }}
+                </div>
+              </template>
+            </v-radio>
           </v-radio-group>
-          </v-card-text>
-        </v-card>
-        <v-btn type="submit" color="primary" :disabled="!isFormValid">送信</v-btn>
-      </v-form>
-    </v-container>
-  </template>
+        </v-card-text>
+      </v-card>
+      <div class="d-flex justify-center mt-8 mb-12">
+        <v-btn
+          type="submit"
+          color="primary"
+          :disabled="!isFormValid"
+          x-large
+          class="px-8 py-2"
+        >
+          送信
+        </v-btn>
+      </div>
+    </v-form>
+  </v-container>
+</template>
