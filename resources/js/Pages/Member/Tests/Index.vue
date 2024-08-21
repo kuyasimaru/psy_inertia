@@ -11,7 +11,8 @@ const tests = [
     icon: 'mdi-brain',
     buttons: [
       { text: '診断する', route: 'member.tests.create' },
-      { text: '診断結果を表示', route: 'member.tests.show' }
+      { text: '診断結果を表示', route: 'member.tests.show' },
+      { text: 'ビックファイヴとは？', route: 'member.tests.bigfiveexplantion' }
     ]
   },
   {
@@ -21,7 +22,8 @@ const tests = [
     icon: 'mdi-heart-pulse',
     buttons: [
       { text: '診断する', route: 'member.tests.stylecreate' },
-      { text: '診断結果を表示', route: 'member.tests.styleshow' }
+      { text: '診断結果を表示', route: 'member.tests.styleshow' },
+      { text: 'HSPとは？', route: 'member.tests.styleexplantion' }
     ]
   },
   {
@@ -31,7 +33,8 @@ const tests = [
     icon: 'mdi-clock-time-four-outline',
     buttons: [
       { text: '診断する', route: 'member.tests.chronotypecreate' },
-      { text: '診断結果を表示', route: 'member.tests.chronotypeshow' }
+      { text: '診断結果を表示', route: 'member.tests.chronotypeshow' },
+      { text: 'クロノタイプとは？', route: 'member.tests.chronotypeexplantion' }
     ]
   }
 ]

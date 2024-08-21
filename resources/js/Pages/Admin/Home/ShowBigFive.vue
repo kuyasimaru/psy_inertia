@@ -54,6 +54,15 @@
       <p>HSPの結果が見つかりません。</p>
     </div>
   </div>
+  <v-btn
+        color="secondary"
+        :href="route('admin.home.members-info')"
+        class="mt-4"
+        text
+      >
+        <v-icon left>mdi-arrow-left</v-icon>
+        戻る
+      </v-btn>
 </template>
 
 <script>
