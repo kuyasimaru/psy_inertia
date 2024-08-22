@@ -28,7 +28,7 @@ use App\Http\Controllers\WelcomeController;
 //         'phpVersion' => PHP_VERSION,
 //     ]);
 // });
-Route::get('/welcome/index',[WelcomeController::class,'index'])->name('welcome.index');
+Route::get('/',[WelcomeController::class,'index'])->name('welcome.index');
 
 // memberとしての認証、および、機能のルーティング
 require __DIR__ . '/member.php';

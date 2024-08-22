@@ -74,8 +74,6 @@ class StyleController extends Controller
     
         return Inertia::render('Member/Tests/StyleShow', [
             'result' => $style,
-            'message' => session('message'),
-            'status' => session('status')
         ]);
     } 
 }

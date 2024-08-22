@@ -95,7 +95,7 @@ export default {
     members: {
       type: Array,
       default: () => []
-    }
+    },
   },
   data() {
     return {

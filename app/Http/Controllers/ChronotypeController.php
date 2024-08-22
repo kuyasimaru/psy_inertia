@@ -56,8 +56,8 @@ class ChronotypeController extends Controller
         ]);
     }
 
-    public function chronotypeshow(Request $request, $chronotypeId = null){
-
+    public function chronotypeshow(Request $request, $chronotypeId = null)
+    {
         $member_id = Auth::id();
         if ($chronotypeId) {
             $chronotype = Chronotype::where('member_id', $member_id)->findOrFail($chronotypeId);
@@ -71,11 +71,9 @@ class ChronotypeController extends Controller
                     'status' => 'info'
                 ]);
         }
-    
+
         return Inertia::render('Member/Tests/ChronoTypeShow', [
             'result' => $chronotype,
-            'message' => session('message'),
-            'status' => session('status')
         ]);
     }
     

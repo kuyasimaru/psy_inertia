@@ -39,18 +39,21 @@ class AdminInvite extends Controller
     }
 
     public function getInviteMembers(Request $request){
-        //
+        //現在のユーザー取得
         $admin = $request->user();
 
+        //管理者が招待したユーザーを取得し、整形
         $members = Member::with('company')
         ->whereHas('invite',function($query) use ($admin) {
+            //取得した管理者が招待したメンバー
             $query->where('admin_id', $admin->id);
         })->get()
         ->map(function ($member){
             return [
                 'id' => $member->id,
                 'name' =>$member->name,
-                // 値がない場合null値を返すnull合体演算子
+                //ここで会社名など入力
+                // null合体演算子
                 'companyName' => $member->company ? $member->company->companyName : null,
                 'departmentName' => $member->company ? $member->company->departmentName : null,
             ];
