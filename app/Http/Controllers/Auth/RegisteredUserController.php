@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
-use Illuminate\Support\Facades\DB;
+use App\Models\Admin;
+use App\Models\Member;
 
 class RegisteredUserController extends AuthController
 {
@@ -34,7 +35,22 @@ class RegisteredUserController extends AuthController
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:',//.User::class,
+            // 'email' => 'required|string|email|max:255|unique:',//.User::class,
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                function ($attribute, $value, $fail) {
+                    $models = [User::class, Admin::class, Member::class];
+                    
+                    foreach ($models as $model) {
+                        if ($model::where('email', $value)->exists()) {
+                            return $fail("このメールアドレスは既に登録されています。 (モデル: " . class_basename($model) . ")");
+                        }
+                    }
+                },
+            ],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
         if ($this->isEmailTaken($request->email)) {
@@ -53,19 +69,6 @@ class RegisteredUserController extends AuthController
         Auth::login($user);
 
         return redirect(RouteServiceProvider::home());
-    }
-
-    protected function isEmailTaken($email)
-    {
-        
-        function ($attribute, $value, $fail) {
-            $tables = ['users', 'admins', 'members'];
-            foreach ($tables as $table) {
-                if (\DB::table($table)->where('email', $value)->exists()) {
-                    return $fail("このメールアドレスは既に登録されています。");
-                }
-            }
-        };
     }
     
 }
