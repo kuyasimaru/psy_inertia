@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\mail\MemberInvitMail;
+use App\Mail\MemberInvitMail;
 use App\Models\Member;
 use App\Models\Company;
 use App\Models\Invite;
