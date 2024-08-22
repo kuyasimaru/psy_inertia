@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Facades\DB;
 
 class RegisteredUserController extends AuthController
 {
@@ -36,6 +37,9 @@ class RegisteredUserController extends AuthController
             'email' => 'required|string|email|max:255|unique:',//.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
+        if ($this->isEmailTaken($request->email)) {
+            return back()->withErrors(['email' => 'このメールアドレスは既に登録されています。'])->withInput();
+        }
 
         $modelName = $this->modelName();
         $user = $modelName::create([
@@ -50,4 +54,15 @@ class RegisteredUserController extends AuthController
 
         return redirect(RouteServiceProvider::home());
     }
+
+    protected function isEmailTaken($email)
+        {
+            $tables = ['admins', 'members']; // ここにチェックするテーブルを追加
+            foreach ($tables as $table) {
+                if (DB::table($table)->where('email', $email)->exists()) {
+                    return true;
+                }
+            }
+            return false;
+        }
 }
