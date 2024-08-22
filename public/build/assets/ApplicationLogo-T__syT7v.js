@@ -1,0 +1,1 @@
+import{_ as o}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{o as c,f as e}from"./app-BVu9A5rz.js";const r={},t={src:"/images/brain-2773466_1280.png",alt:"/"};function n(s,_){return c(),e("img",t)}const m=o(r,[["render",n]]);export{m as A};
