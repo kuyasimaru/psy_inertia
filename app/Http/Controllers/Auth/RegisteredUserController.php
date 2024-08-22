@@ -56,13 +56,16 @@ class RegisteredUserController extends AuthController
     }
 
     protected function isEmailTaken($email)
-        {
-            $tables = ['admins', 'members']; // ここにチェックするテーブルを追加
+    {
+        
+        function ($attribute, $value, $fail) {
+            $tables = ['users', 'admins', 'members'];
             foreach ($tables as $table) {
-                if (DB::table($table)->where('email', $email)->exists()) {
-                    return true;
+                if (\DB::table($table)->where('email', $value)->exists()) {
+                    return $fail("このメールアドレスは既に登録されています。");
                 }
             }
-            return false;
-        }
+        };
+    }
+    
 }
