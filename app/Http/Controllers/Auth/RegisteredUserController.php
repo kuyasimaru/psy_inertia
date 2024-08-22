@@ -46,16 +46,13 @@ class RegisteredUserController extends AuthController
                     
                     foreach ($models as $model) {
                         if ($model::where('email', $value)->exists()) {
-                            return $fail("このメールアドレスは既に登録されています。 (モデル: " . class_basename($model) . ")");
+                            return $fail("このメールアドレスは既に登録されています。");
                         }
                     }
                 },
             ],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-        if ($this->isEmailTaken($request->email)) {
-            return back()->withErrors(['email' => 'このメールアドレスは既に登録されています。'])->withInput();
-        }
 
         $modelName = $this->modelName();
         $user = $modelName::create([
