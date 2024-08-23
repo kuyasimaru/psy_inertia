@@ -7,7 +7,8 @@ use App\Http\Controllers\Member\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-
+Route::get('member/company/formcreate/{token}', [FormInviteController::class, 'showCompanyForm'])->name('member.company.formcreate');
+Route::post('member/company/store',[FormInviteController::class,'storeCompanyInfo'])->name('member.company.store');
 
 Route::prefix('member')->name('member.')->group(function () {
     Route::middleware(['auth:member'])->group(function() {
@@ -38,8 +39,7 @@ Route::prefix('member')->name('member.')->group(function () {
             return Inertia::render('Member/Tests/StyleExplantion');
         })->name('tests.styleexplantion');
 
-        Route::get('/company/formcreate/{token}', [FormInviteController::class, 'showCompanyForm'])->name('company.formcreate');
-        Route::post('/company/store',[FormInviteController::class,'storeCompanyInfo'])->name('company.store');
+
 
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
