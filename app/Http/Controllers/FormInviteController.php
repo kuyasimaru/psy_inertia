@@ -15,6 +15,7 @@ class FormInviteController extends Controller
 {
     public function showCompanyForm($token)
     {
+        //tokenが一致する招待したmember取得
         $invite = Invite::where('token', $token)->firstOrFail();
         $member = $invite->member;
 
@@ -32,6 +33,7 @@ class FormInviteController extends Controller
             'token' => 'required|string|exists:invites,token',
         ]);
 
+        //tokenが一致する招待したmember取得
         $invite = Invite::where('token', $validated['token'])->firstOrFail();
         $member = $invite->member;
 
@@ -41,9 +43,12 @@ class FormInviteController extends Controller
             'admin_id' => $invite->admin_id,
         ]);
 
+        //Companiesテーブルとの関連付け
         $member->company_id = $company->id;
         $member->save();
 
+        //トークン無効化のため削除
+        $invite->delete();
 
         return to_route('member.index')
         ->with('message', '会社情報が登録されました。');

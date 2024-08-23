@@ -75,9 +75,6 @@ class AdminInvite extends Controller
 
         $style = $member->Style()->first();
 
-        if(!$bigFive){
-            return back()->with('message','結果がありません');
-        }
 
         return Inertia::render('Admin/Home/ShowBigFive',[
             'member' => $member,

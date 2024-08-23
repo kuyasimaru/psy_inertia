@@ -86,8 +86,7 @@ public function create()
 
     public function show(Request $request, $bigfiveId = null){
 
-
-
+        //maybe-later: コードがおかしいので直す
         $member_id = Auth::id();
         if ($bigfiveId) {
             $bigfive = BigFive::where('member_id', $member_id)->findOrFail($bigfiveId);
