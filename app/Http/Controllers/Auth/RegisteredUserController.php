@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\Admin;
+use App\Models\Member;
 
 class RegisteredUserController extends AuthController
 {
@@ -33,7 +35,22 @@ class RegisteredUserController extends AuthController
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:'.User::class,
+            // 'email' => 'required|string|email|max:255|unique:',//.User::class,
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                function ($attribute, $value, $fail) {
+                    $models = [User::class, Admin::class, Member::class];
+                    
+                    foreach ($models as $model) {
+                        if ($model::where('email', $value)->exists()) {
+                            return $fail("このメールアドレスは既に登録されています。");
+                        }
+                    }
+                },
+            ],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -50,4 +67,5 @@ class RegisteredUserController extends AuthController
 
         return redirect(RouteServiceProvider::home());
     }
+    
 }
